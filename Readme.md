@@ -27,8 +27,17 @@
 ## Part 3 : Setting up Kubernetes
 ### 3.1 Configuring Kubernetes
 1. To verify Kubernetes is running in local environment, run the following command "kubectl get nodes"
+### 3.2 Setting up Master & Worker nodes
+1. [Steps to set up worker nodes]
 
-
-
-
-
+## Part 4 : Deploying the Application
+### 4.1 Creating Kubernetes deployment YAML file to deploy application
+1. Create a new directory (yml)
+2. Create a YAML file (deployment.yml) into yml
+### 4.2 Configure 3 replicas
+1. Run the following command "kubectl scale deployment my-flask-app --replicas=3
+2. To verify the newly scaled deployment, run "kubectl get deployments" and "kubectl describe deployment my-flask-app"
+### 4.3
+### 4.4 Applying the deployment YAML file to Kubernetes cluster
+1. Run the following Kubernetes command "kubectl apply -f deployment.yml"
+2. Check if deployment is running by running the following code "kubectl get deployments"
