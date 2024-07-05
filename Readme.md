@@ -41,3 +41,34 @@
 ### 4.4 Applying the deployment YAML file to Kubernetes cluster
 1. Run the following Kubernetes command "kubectl apply -f deployment.yml"
 2. Check if deployment is running by running the following code "kubectl get deployments"
+
+## Part 5 : Persistent Volume Configuration
+### 5.1 & 5.2 PVC YAML file
+1. Create YAML file for Persistent Volume (PV.yml)
+2. Create YAML file for Persistent Volume Claim (PVC.yml)
+### 5.3 Mount the PV to container within the Deployment YAML file
+1. Modify the Deployment YAML to use the PVC
+### 5.4 Log file 
+1. Create a Configmap using YAML file (nginx-configmap.yml)
+2. Modify the Deployment YAML to mount Configmap in container
+3. Run the following commands "kubectl apply -f nginx-configmap.ym", "kubectl apply -f PV.yml", "kubectl apply -f PVC.yml", "kubectl apply -f deployment.yml"
+### 5.5 Deleting Deployment and Recreating
+1. To delete Deployment, run the following code "kubectl delete deployment {deployment-name}", where deployment-name is defined in deployment.yml file
+2. To create a new deployment, run the following command "kubectl apply -f deployment.yml"
+### 5.6 Test the container to verify log file is still present in mount path
+1. To identify the pod, run "kubectl get pods"
+2. To access the pod, run "kubectl exec -it <pod-name> -- /bin/bash, where <pod-name> is to be replaced with the identified pod name in step 1.
+3. To verify log file, run "cd /mnt/data" and "ls -l"
+4.1. To check the contents of the log file, run "cat nginx-access.log"
+4.2. To check errors, run "cat nginx-error.log"
+
+## Part 6 : Expose the Deployment as a Service
+### 6.1 Expose deployment as a service of type ClusterIP
+1. Run the following command "kubectl expose deployment my-flask-app --type=ClusterIP --port=5000 --target-port=5000" 
+2. Another way is to create a YAML file for Service (Service.yml) and then apply it by running "kubectl apply -f Service.yml"
+### 6.2 Create a test pod to access service to validate
+1. Create YAML file for test pod (test-pod.yml)
+2. Apply by running "kubectl apply -f test-pod.yml"
+3. Access the test pod by running "kubectl exec -it test-pod -- /bin/bash
+4. Test the service by running "curl http://my-flask-app:5000"
+5. After testing, cleanup by deleting the test pod. Run "kubectl delete pod test-pod"
